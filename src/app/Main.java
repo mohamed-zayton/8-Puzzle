@@ -5,29 +5,32 @@ public class Main {
 	private  static Scanner input = new Scanner(System.in);
 	public static void main(String[] args) {
 //		 byte[] start = new byte[9];
-		byte[] start = {1, 5, 3, 2, 6, 4, 7, 8, 0};
+		byte[] start = {1, 8, 2, 0, 4, 3, 7, 6, 5};
          byte[] goal = {0,1,2,3,4,5,6,7,8};
 
          State state = new State(start, new Heuristics(1));
          state.getNeighbours();
+
+         DFS dfs = new DFS(state);
+         State goals = dfs.DFS_search();
 //		System.out.println(state.getKey());
-          
+
 //         System.out.println("Enter Puzzle:");
 //         for(int i= 0 ; i < 9 ; i++)
 //             start[i] = input.nextByte();
 //
 //         algorithm_choice(start, goal);
-         
+
 	}
    public static void algorithm_choice (byte[] start , byte[] goal)
    {
 	   Heuristics heuristic;
        State s ;
-	   
-	   
+
+
 	   System.out.printf("Choose algorithm\n1)BFS\n2)DFS\n3)A*\n>>");
 	   byte choice=input.nextByte() ;
-	  
+
 //	   switch (choice)
 //       {
 //           case 1:

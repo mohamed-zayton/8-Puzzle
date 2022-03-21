@@ -18,6 +18,12 @@ public class State {
     private String path;
     private Heuristics heuristic;
     private byte[] state;
+
+	public void setParent(State parent) {
+		this.parent = parent;
+	}
+
+	private State parent;
     
 
     public String getKey(byte[] state) {
@@ -28,6 +34,16 @@ public class State {
 		}
 
     	return str;
+	}
+
+	public String getKey() {
+		String str = "";
+		for(int i = 0; i < state.length; i++) {
+
+			str += String.valueOf(state[i]);
+		}
+
+		return str;
 	}
 
 	public State(byte[] start, Heuristics h) {
@@ -76,7 +92,7 @@ public class State {
 	}
 
 	private int convertXYtoX(int x, int y, int n) {
-    	return n*x+y;
+    	return n*y+x;
 	}
 
 	private byte[][] convertTo2D(byte[] oneD, int n) {
@@ -94,28 +110,28 @@ public class State {
 		ArrayList<byte[]> neighbours = new ArrayList<>();
 		int zero = getZeroPos();
 		tiles = convertTo2D(state, 3);
-		int x = zero%3;
-		int y = (int) (Math.ceil((double)zero/3)-1);
+		int x = zero%3;//column
+		int y = zero/3;//row
 
 		ArrayList<Pos> positions = new ArrayList<>();
 
 		if(x+1 < 3) {
 			positions.add(new Pos(x+1, y));
 		}
-		if(x-1 > 0) {
+		if(x-1 >= 0) {
 			positions.add(new Pos(x-1, y));
 		}
 		if(y+1 < 3) {
 			positions.add(new Pos(x, y+1));
 		}
-		if(y-1 > 0) {
+		if(y-1 >= 0) {
 			positions.add(new Pos(x, y-1));
 		}
 
 		for(Pos pos: positions) {
 			int i = convertXYtoX(pos.x, pos.y, 3);
 			byte[] neighbour = swap(state, i, zero);
-			System.out.println(getKey(neighbour));
+
 			neighbours.add(neighbour);
 		}
 

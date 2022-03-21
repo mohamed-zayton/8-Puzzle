@@ -7,7 +7,7 @@ public class Heuristics {
      
      public Heuristics(int m )
      {
-         this(new byte[]{1,2,3,4,5,6,7,8,0} , m);
+         this(new byte[]{0, 1,2,3,4,5,6,7,8} , m);
      }
 	 
      public Heuristics(byte[] goal, int mode) {
