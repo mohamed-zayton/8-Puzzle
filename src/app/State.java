@@ -13,6 +13,7 @@ public class State {
 		int x;
 		int y;
 	}
+
     private int  Hn,depth;
     private String path;
     private Heuristics heuristic;
@@ -120,6 +121,7 @@ public class State {
 
 		return neighbours;
 	}
+
     
 	public int getDepth() {
 		return depth;
