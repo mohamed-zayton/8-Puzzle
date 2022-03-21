@@ -11,6 +11,7 @@ public class A_STAR {
 		PriorityQueue<State> frontier = new PriorityQueue<>();
 		HashSet<String> explored = new HashSet<String>();
 		HashMap<String,String> childParent = new HashMap<>();
+
 		frontier.add(s);
 
 
@@ -26,7 +27,11 @@ public class A_STAR {
 				if (!explored.contains(ne)) {
 					frontier.add(newState);
 				}else {
-					var value = state.getDepth() + newState.getDepth();
+					var heuristicFun = newState.getHeuristic();
+					var value = state.getDepth() + heuristicFun.get_Heuristics(newState.getState());
+					newState.setParent(state);
+					newState.setDepth(value);
+					frontier.add(newState);
 
 				}
 			}

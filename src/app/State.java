@@ -25,9 +25,16 @@ public class State {
 	}
 
 	private State parent;
-    
 
-    public String getKey(byte[] state) {
+	public Heuristics getHeuristic() {
+		return heuristic;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public String getKey(byte[] state) {
     	String str = "";
     	for(int i = 0; i < state.length; i++) {
 
