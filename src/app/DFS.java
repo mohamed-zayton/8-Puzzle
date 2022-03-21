@@ -9,7 +9,7 @@ public class DFS {
 	private State goal;
 	private HashMap<String, String> explored;
 	private HashMap<String, String> parentMap;
-	private int index ;
+	private int index;
 
 	public DFS(State s) {
 		root=s;
@@ -21,20 +21,20 @@ public class DFS {
 
 	public State DFS_search() {
 		State current = null;
-		stack.add(root);
+		stack.push(root);
 		parentMap.put(root.getKey(), root.getKey());
 
 		while (!stack.isEmpty())
 		{
-			current = stack.peek();
+			current = stack.pop();
 			explored.put(current.getKey(), current.getKey());
-			stack.pop();
 			if(current.is_Goal())
 			{
 				System.out.println("target found at index: "+index);
-				creatPath(current);
+//				creatPath(current);
 				return  current;
 			}
+
 
 			index ++ ;
 			ArrayList<State> children = new ArrayList<>();
@@ -42,6 +42,7 @@ public class DFS {
 				children.add(new State(tiles, new Heuristics(0)));
 			}
 			addChildren(children, current);
+
 		}
 		goal = current;
 
@@ -78,9 +79,6 @@ public class DFS {
 	{
 		for(State node : children)
 		{
-			if(node == null) {
-				break;
-			}
 			if(!explored.containsKey(node.getKey()) && !parentMap.containsKey(node.getKey())) {
 				stack.push(node);
 				parentMap.put(node.getKey(), parent.getKey());
