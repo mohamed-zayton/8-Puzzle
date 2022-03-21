@@ -27,21 +27,23 @@ public class Main {
        {
            case 1:
                System.out.println("\n---------- BFS ----------");
-               heuristic= new Heuristics();
+               heuristic= new Heuristics(goal , 0);
                s= new State(start,heuristic);
                BFS bfs = new BFS(s);
-               // method to solve bfs
+               bfs.BFS_search();
                break;
            case 2:
         	   System.out.println("\n---------- DFS ----------");
-        	  heuristic= new Heuristics();
+        	  heuristic= new Heuristics(goal , 0);
         	   s= new State(start,heuristic);
         	   DFS dfs = new DFS(s);
-        	// method to solve dfs
+        	   dfs.DFS_search();
         	   break;
            case 3:
         	   System.out.println("\n---------- A* ----------");
-        	   heuristic= new Heuristics();
+        	   System.out.printf("choose heuristic\n1)Manhattan\n2)Euclidean\n>>");
+        	   choice=input.nextByte();
+        	   heuristic= new Heuristics(goal ,choice);
            	   s= new State(start,heuristic);
            	A_STAR a_star= new A_STAR(s);
            	// method to solve a_star
