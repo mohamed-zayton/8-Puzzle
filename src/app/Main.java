@@ -4,13 +4,19 @@ import java.util.*;
 public class Main {
 	private  static Scanner input = new Scanner(System.in);
 	public static void main(String[] args) {
-//		 byte[] start = new byte[9];
-		byte[] start = {1, 8, 2, 0, 4, 3, 7, 6, 5};
-		byte[] goal = {0,1,2,3,4,5,6,7,8};
 
-         State state = new State(start, new Heuristics(1));
+	    State state = new State(State.convertNormalStateBytesToOptimizedBytes(new byte[]{1, 2, 3, 4, 0, 5, 6, 7, 8}));
+	    State state1 = new State(State.convertNormalStateBytesToOptimizedBytes(new byte[]{1, 2, 3, 0, 4, 5, 6, 7, 8}));
+	    HashSet<State> hashSet = new HashSet<>();
+	    hashSet.add(state);
+        System.out.println(hashSet.contains(state1));
+        System.exit(0);
+        List<State> neighbors = state.getNeighborStates();
+        System.out.println(state);
+        for (State n : neighbors)
+            System.out.println(n);
 
-        DFS dfs = new DFS(state);
+        /*DFS dfs = new DFS(state);
          State goals = dfs.DFS_search();
          goals.print_state();
 //		System.out.println(state.getKey());
@@ -56,7 +62,7 @@ public class Main {
 //           	A_STAR a_star= new A_STAR(s);
 //           	// method to solve a_star
 //           	   break;
-//       }
+//       }*/
 
    }
 }

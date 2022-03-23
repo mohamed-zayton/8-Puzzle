@@ -1,4 +1,4 @@
-package app;
+/*package app;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -39,7 +39,7 @@ public class DFS {
 			index ++ ;
 			ArrayList<State> children = new ArrayList<>();
 			for(byte[] tiles: current.getNeighbours()) {
-				children.add(new State(tiles, new Heuristics(0)));
+				children.add(new State(tiles, new Heuristics()));
 			}
 			addChildren(children, current);
 
@@ -56,7 +56,7 @@ public class DFS {
 		while (!(parentMap.get(goal.getKey()).equals(goal.getKey()))) {
 			encoding = parentMap.get(goal.getKey());
 			goal.print_state();
-			State state = new State(mapStringToByte(encoding), new Heuristics(0));
+			State state = new State(mapStringToByte(encoding), new Heuristics());
 			goal.setParent(state);
 			goal = state;
 		}
@@ -87,3 +87,4 @@ public class DFS {
 	}
 
 }
+*/
