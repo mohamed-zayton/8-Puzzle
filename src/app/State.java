@@ -36,6 +36,19 @@ public class State {
 		return (byte) (slotNum % 2 == 0 ? (state[(int)slotNum/2] >>> 4) : (state[(int)slotNum/2] & 0b00001111));
 	}
 
+	public byte getValSlot(byte value) {
+		if (value < 0 || value > 8)
+			throw new IllegalArgumentException();
+
+		for (byte i = 0; i < 9; i++) {
+			if (getSlotVal(i) == value)
+				return i;
+
+		}
+
+		return -1;
+	}
+
 	public void setSlotVal(byte slotNum, byte slotVal) {
 		if (slotVal < 0 || slotVal > 8)
 			throw new IllegalArgumentException();
