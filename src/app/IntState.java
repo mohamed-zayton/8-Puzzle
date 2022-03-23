@@ -161,4 +161,7 @@ public class IntState {
         return h;
     }
 
+    public int getGoalState() {
+        return goalState;
+    }
 }

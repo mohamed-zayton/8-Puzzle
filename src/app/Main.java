@@ -14,12 +14,7 @@ public class Main {
 			System.out.println(n);
 	    //TODO: Solve the puzzle here.*/
 
-		IntState state = new IntState();
-		int intState = 123405678;
-		List<Integer> neighbors = state.getNeighborIntStates(intState);
-		System.out.println(intState);
-		for (int n : neighbors)
-			System.out.println(n);
+		
 
    }
 
