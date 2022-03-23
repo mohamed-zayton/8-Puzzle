@@ -6,11 +6,12 @@ public class Main {
 	public static void main(String[] args) {
 		int boardSize = 3*3;
 	    byte[] initialStateBytes = scanStartState(boardSize);
-		System.out.println(Arrays.toString(initialStateBytes));
 		byte[] optimizedInitialState = State.convertNormalStateBytesToOptimizedBytes(initialStateBytes, boardSize);
-		System.out.println(Arrays.toString(optimizedInitialState));
 	    State initialState = new State(optimizedInitialState, boardSize);
-        System.out.println(initialState);
+		System.out.println(initialState);
+	    List<State> neighbors = initialState.getNeighborStates();
+	    for (State n : neighbors)
+			System.out.println(n);
 	    //TODO: Solve the puzzle here.
    }
 

@@ -35,7 +35,7 @@ public class State {
 	}
 
 	public byte getSlotVal(byte slotNum) {
-		return (byte) (slotNum % 2 == 0 ? (state[(int)slotNum/2] >>> 4) : (state[(int)slotNum/2] & 0b00001111));
+		return (byte) (slotNum % 2 == 0 ? (Byte.toUnsignedInt(state[(int)slotNum/2]) >>> 4) : (state[(int)slotNum/2] & 0b00001111));
 	}
 
 	public byte getValSlot(byte value) {
@@ -80,10 +80,9 @@ public class State {
 				(byte) (emptySlotNum + Math.sqrt(boardSize)), (byte) (emptySlotNum - Math.sqrt(boardSize))};
 
 		for (byte currNeighborSlot : neighborSlots) {
-			// 0 1 2 3
-			// 4 5 6 7
-			// 8 9 10 11
-			// 12 13 14 15
+			// 0 1 2
+			// 3 4 5
+			// 6 7 8
 			// boardSize - 1 + x * boardSize = (index - board_size + 1 / boardSize)
 			if (
 					currNeighborSlot < 0
