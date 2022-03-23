@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		int boardSize = 3*3;
+		/*int boardSize = 3*3;
 	    byte[] initialStateBytes = scanStartState(boardSize);
 		byte[] optimizedInitialState = State.convertNormalStateBytesToOptimizedBytes(initialStateBytes, boardSize);
 	    State initialState = new State(optimizedInitialState, boardSize);
@@ -12,7 +12,15 @@ public class Main {
 	    List<State> neighbors = initialState.getNeighborStates();
 	    for (State n : neighbors)
 			System.out.println(n);
-	    //TODO: Solve the puzzle here.
+	    //TODO: Solve the puzzle here.*/
+
+		IntState state = new IntState();
+		int intState = 123405678;
+		List<Integer> neighbors = state.getNeighborIntStates(intState);
+		System.out.println(intState);
+		for (int n : neighbors)
+			System.out.println(n);
+
    }
 
    private static byte[] scanStartState(int boardSize) {

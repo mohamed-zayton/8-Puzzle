@@ -22,7 +22,7 @@ public class Heuristics {
         int boardRowsNum = (int) Math.sqrt(state.getBoardSize());
         int emptySlotNum = state.getEmptySlotNum();
         int h = Math.abs(boardRowsNum - 1 - emptySlotNum/boardRowsNum) + Math.abs(boardRowsNum - 1 - emptySlotNum%boardRowsNum);
-        
+
         for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < boardRowsNum; i++) {
             actualRow = i/boardRowsNum;
             actualCol = i%boardRowsNum;
