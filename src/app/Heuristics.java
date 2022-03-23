@@ -19,14 +19,16 @@ public class Heuristics {
 
 
     private int calManhattan(State state) {
-
-        int h = 0;
-        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < 9; i++) {
-            actualRow = i/3;
-            actualCol = i%3;
+        int boardRowsNum = (int) Math.sqrt(state.getBoardSize());
+        int emptySlotNum = state.getEmptySlotNum();
+        int h = Math.abs(boardRowsNum - 1 - emptySlotNum/boardRowsNum) + Math.abs(boardRowsNum - 1 - emptySlotNum%boardRowsNum);
+        
+        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < boardRowsNum; i++) {
+            actualRow = i/boardRowsNum;
+            actualCol = i%boardRowsNum;
             slotNum = state.getValSlot((byte) (i + 1));
-            currRow = slotNum/3;
-            currCol = slotNum%3;
+            currRow = slotNum/boardRowsNum;
+            currCol = slotNum%boardRowsNum;
             h += Math.abs(actualRow - currRow) + Math.abs(actualCol - currCol);
         }
 
@@ -34,13 +36,16 @@ public class Heuristics {
     }
 
     private int calEuclidean(State state) {
-        int h = 0;
-        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < 9; i++) {
-            actualRow = i/3;
-            actualCol = i%3;
+        int boardRowsNum = (int) Math.sqrt(state.getBoardSize());
+        int emptySlotNum = state.getEmptySlotNum();
+        int h = (int) Math.sqrt(Math.pow((boardRowsNum - 1 - emptySlotNum/boardRowsNum), 2) + Math.pow((boardRowsNum - 1 - emptySlotNum%boardRowsNum), 2));
+
+        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < state.getBoardSize(); i++) {
+            actualRow = i/boardRowsNum;
+            actualCol = i%boardRowsNum;
             slotNum = state.getValSlot((byte) (i + 1));
-            currRow = slotNum/3;
-            currCol = slotNum%3;
+            currRow = slotNum/boardRowsNum;
+            currCol = slotNum%boardRowsNum;
 
             h += Math.sqrt(Math.pow((actualRow - currRow), 2) + Math.pow((actualCol - currCol), 2));
         }

@@ -80,10 +80,7 @@ public class State {
 				(byte) (emptySlotNum + Math.sqrt(boardSize)), (byte) (emptySlotNum - Math.sqrt(boardSize))};
 
 		for (byte currNeighborSlot : neighborSlots) {
-			// 0 1 2
-			// 3 4 5
-			// 6 7 8
-			// boardSize - 1 + x * boardSize = (index - board_size + 1 / boardSize)
+
 			if (
 					currNeighborSlot < 0
 					|| currNeighborSlot > boardSize - 1
@@ -97,6 +94,10 @@ public class State {
 		}
 
 		return neighborsList;
+	}
+
+	public int getBoardSize() {
+		return boardSize;
 	}
 
 	@Override
