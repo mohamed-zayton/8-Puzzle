@@ -1,19 +1,16 @@
-package app.Algorithms;
+package app.algorithms;
 
 import app.IntState;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Stack;
 
-public class DFS {
+public class BFS {
 
-    private Stack<Integer> frontier = new Stack<>();
+    private Queue<Integer> frontier = new LinkedList<>();
     private HashSet<Integer> explored = new HashSet<>();
     private HashMap<Integer, Integer> parentMap = new HashMap<>();
 
-    public List<Integer> DFS(int initialState) {
+    public List<Integer> BFS(int initialState) {
         frontier.clear();
         explored.clear();
         parentMap.clear();
@@ -25,7 +22,7 @@ public class DFS {
         boolean goalFound = false;
         int currState;
         while (!frontier.isEmpty()) {
-            currState = frontier.pop();
+            currState = frontier.poll();
             if (explored.contains(currState))
                 continue;
             else if (intState.isGoalState(currState)) {

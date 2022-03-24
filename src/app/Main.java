@@ -1,13 +1,46 @@
 package app;
-import app.Algorithms.A_STAR;
-import app.Algorithms.BFS;
-import app.Algorithms.DFS;
+import app.algorithms.A_STAR;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.util.*;
 
-public class Main {
+public class Main extends Application {
+
+	@Override
+	public void start(Stage primaryStage) throws Exception{
+
+		/*PuzzleGUI puzzleGUI = null;// = new PuzzleGUI();
+		Parent parent = null;
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("gui.fxml"));
+			//puzzleGUI = new PuzzleGUI();
+			loader.setController(puzzleGUI);
+			//puzzleGUI = loader.load();
+			//loader.setRoot(parent);
+			parent = loader.load();
+			puzzleGUI = loader.getController();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+
+		int state = 123456789;
+		System.out.println(puzzleGUI);
+		puzzleGUI.buildPuzzle();*/
+		Scene scene = new Scene(new Pane(), 550, 730);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 
 	public static void main(String[] args) {
+		launch(args);
 		/*int boardSize = 3*3;
 	    byte[] initialStateBytes = scanStartState(boardSize);
 		byte[] optimizedInitialState = State.convertNormalStateBytesToOptimizedBytes(initialStateBytes, boardSize);
