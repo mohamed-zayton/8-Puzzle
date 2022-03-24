@@ -11,7 +11,6 @@ public class A_STAR {
 		PriorityQueue<State> frontier = new PriorityQueue<>();
 		HashSet<String> explored = new HashSet<String>();
 		HashMap<String,String> childParent = new HashMap<>();
-
 		frontier.add(s);
 
 
