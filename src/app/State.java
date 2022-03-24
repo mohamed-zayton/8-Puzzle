@@ -2,158 +2,142 @@ package app;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class State {
 
-	private class Pos{
-		public Pos(int x, int y) {
-			this.x = x;
-			this.y = y;
+	private byte[] state;
+	private int boardSize;
+
+	/**
+	 * constructor.
+	 * @param state you need to send an optimized state array not the normal one.
+	 */
+	public State(byte[] state, int boardSize) {
+		this.state = state;
+		this.boardSize= boardSize;
+	}
+
+	public static byte[] convertNormalStateBytesToOptimizedBytes(byte[] state, int boardSize){
+		byte[] optimizedState = new byte[(int) Math.ceil(boardSize/2.0)];
+		for (int i = 0; i < state.length; i++) {
+			optimizedState[i/2] =  (byte) (i % 2 == 0
+					? (optimizedState[i/2] & 0b00001111 | (state[i] << 4))
+					: (optimizedState[i/2] & 0b11110000 | state[i]));
+
+			if (state[i] == 0)
+				optimizedState[4] = (byte) (optimizedState[4] & 0b11110000 | i);
+
 		}
 
-		int x;
-		int y;
+		return optimizedState;
 	}
 
-    private int  Hn,depth;
-    private String path;
-    private Heuristics heuristic;
-    private byte[] state;
-
-	public void setParent(State parent) {
-		this.parent = parent;
+	public byte getSlotVal(byte slotNum) {
+		return (byte) (slotNum % 2 == 0 ? (Byte.toUnsignedInt(state[(int)slotNum/2]) >>> 4) : (state[(int)slotNum/2] & 0b00001111));
 	}
 
-	private State parent;
-    
+	public byte getValSlot(byte value) {
+		if (value < 0 || value > 8)
+			throw new IllegalArgumentException();
 
-    public String getKey(byte[] state) {
-    	String str = "";
-    	for(int i = 0; i < state.length; i++) {
+		for (byte i = 0; i < state.length; i++) {
+			if (getSlotVal(i) == value)
+				return i;
 
-    		str += String.valueOf(state[i]);
 		}
 
-    	return str;
+		return -1;
 	}
 
-	public String getKey() {
-		String str = "";
-		for(int i = 0; i < state.length; i++) {
+	public void setSlotVal(byte slotNum, byte slotVal) {
+		if (slotVal < 0 || slotVal > boardSize - 1)
+			throw new IllegalArgumentException();
 
-			str += String.valueOf(state[i]);
+		state[slotNum/2] =  (byte) (slotNum % 2 == 0
+				? (state[slotNum/2] & 0b00001111 | (slotVal << 4))
+				: (state[slotNum/2] & 0b11110000 | slotVal));
+	}
+
+
+
+	public byte getEmptySlotNum() {
+		return (byte) (state[4] & 0b00001111);
+	}
+
+
+	private void swapTwoSlots(byte fSlotNum, byte sSlotNum) {
+		byte tempVal = getSlotVal(fSlotNum);
+		setSlotVal(fSlotNum, getSlotVal(sSlotNum));
+		setSlotVal(sSlotNum, tempVal);
+	}
+
+	public List<State> getNeighborStates() {
+		byte emptySlotNum = getEmptySlotNum();
+		ArrayList<State> neighborsList = new ArrayList<>();
+		byte[] neighborSlots = new byte[]{(byte) (emptySlotNum + 1), (byte) (emptySlotNum - 1),
+				(byte) (emptySlotNum + Math.sqrt(boardSize)), (byte) (emptySlotNum - Math.sqrt(boardSize))};
+
+		for (byte currNeighborSlot : neighborSlots) {
+
+			if (
+					currNeighborSlot < 0
+					|| currNeighborSlot > boardSize - 1
+					|| emptySlotNum%Math.sqrt(boardSize) == 0 && currNeighborSlot == emptySlotNum - 1
+					|| (emptySlotNum - Math.sqrt(boardSize) + 1)%Math.sqrt(boardSize) == 0 && currNeighborSlot == emptySlotNum + 1
+			) {continue;}
+
+			State neighbor = new State(Arrays.copyOf(this.state, this.state.length), this.boardSize);
+			neighbor.swapTwoSlots(emptySlotNum, currNeighborSlot);
+			neighborsList.add(neighbor);
 		}
 
-		return str;
+		return neighborsList;
 	}
 
-	public State(byte[] start, Heuristics h) {
-      this(start,0,"0->",h );
-		
-		
- 	}
-
-    public State(byte[] start, int d, String p, Heuristics h) {
-		state=start.clone();
-		depth=d;
-		path=p;
-		heuristic=h;
-		if(heuristic.Mode!=0)
-		{
-			Hn=heuristic.get_Heuristics(state);
-		}
-		
-	}
-    
-    public void print_state() {
-    	System.out.printf("\n\t%d %d %d\n\t%d %d %d\n\t%d %d %d\n\n",state[0],state[1],state[2],state[3],state[4],state[5],state[6],state[7],state[8]);
-    }
-
-	
-    boolean is_Goal() {
-    	byte[] g=heuristic.getGoal();
-    	return(state[0]==g[0] && state[1]==g[1] && state[2]==g[2] && state[3]==g[3] && state[4]==g[4] && state[5]==g[5] && state[6] == g[6] && state[7]==g[7] && state[8]==g[8]);
-    }
-
-    private int getZeroPos() {
-    	for(int i = 0; i < state.length; i++) {
-    		if(state[i] == 0)
-    			return i;
-		}
-
-    	return -1;
+	public int getBoardSize() {
+		return boardSize;
 	}
 
-	private byte[] swap(byte[] state, int i, int j) {
-    	byte[] newState = state.clone();
-    	byte temp = newState[i];
-    	newState[i] = newState[j];
-    	newState[j] = temp;
-		return newState;
-	}
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("[ ");
 
-	private int convertXYtoX(int x, int y, int n) {
-    	return n*y+x;
-	}
-
-	private byte[][] convertTo2D(byte[] oneD, int n) {
-		byte[][] twoD = new byte[3][3];
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				twoD[i][j] = oneD[i*3+j];
+		for (byte i = 0; i < boardSize; i += 2) {
+			byte mostSig = (byte) (Byte.toUnsignedInt(state[i/2]) >>> 4);
+			stringBuilder.append(mostSig == 0 ? "[]" : mostSig);
+			stringBuilder.append(" ");
+			byte leastSig = (byte) (Byte.toUnsignedInt(state[i/2]) & 0b00001111);
+			if (i != boardSize - 1) {
+				stringBuilder.append(leastSig == 0 ? "[]" : leastSig);
+				stringBuilder.append(" ");
 			}
+
 		}
-		return twoD;
+		stringBuilder.append("]");
+		return stringBuilder.toString();
 	}
 
-    public ArrayList<byte[]> getNeighbours(){
-    	byte[][] tiles = new byte[3][3];
-		ArrayList<byte[]> neighbours = new ArrayList<>();
-		int zero = getZeroPos();
-		tiles = convertTo2D(state, 3);
-		int x = zero%3;//column
-		int y = zero/3;//row
-
-		ArrayList<Pos> positions = new ArrayList<>();
-
-		if(x+1 < 3) {
-			positions.add(new Pos(x+1, y));
-		}
-		if(x-1 >= 0) {
-			positions.add(new Pos(x-1, y));
-		}
-		if(y+1 < 3) {
-			positions.add(new Pos(x, y+1));
-		}
-		if(y-1 >= 0) {
-			positions.add(new Pos(x, y-1));
-		}
-
-		for(Pos pos: positions) {
-			int i = convertXYtoX(pos.x, pos.y, 3);
-			byte[] neighbour = swap(state, i, zero);
-
-			neighbours.add(neighbour);
-		}
-
-		return neighbours;
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(state);
 	}
 
-    
-	public int getDepth() {
-		return depth;
-	}
+	@Override
+	public boolean equals(Object state2) {
+		byte[] b = ((State) state2).state;
+		if (b.length != this.state.length)
+			return false;
 
-	public String getPath() {
-		return path;
-	}
+		for (int i = 0; i < b.length; i++) {
+			if (this.state[i] != b[i])
+				return false;
+		}
 
-
-	public byte[] getState() {
-		return state;
+		return true;
 	}
-    
-    
    
 }
 

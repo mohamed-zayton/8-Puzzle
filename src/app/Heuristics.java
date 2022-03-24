@@ -1,70 +1,56 @@
 package app;
 
 public class Heuristics {
-     private byte[] Goal= {0,1,2,3,4,5,6,7,8};
-     int Mode=-1;      // mode=0 -->no heuristics   mode=1 -->manhattan    mode=2  --> euclidean
-     
-     
-     public Heuristics(int m )
-     {
-         this(new byte[]{0, 1,2,3,4,5,6,7,8} , m);
-     }
-	 
-     public Heuristics(byte[] goal, int mode) {
-		Goal=goal;
-		if(mode==0||mode==1||mode==2)
-			Mode=mode;
+
+	public enum HeuristicsType {
+		NONE, MANHATTAN, EUCLIDEAN;
 	}
-	
-     int get_Heuristics(byte[] a)
-	{
-		     if(Mode==0)
-		         return 0;
-		     else if(Mode==1)
-		    	 return Manhattan(a);
-		     else if(Mode==2)
-		    	 return Eculidean(a);	
-		     else 
-		    	 return 0;
-	}
-	
-	
-	
-	private int Manhattan(byte[] tiles) {
 
-     	int h = 0;
-     	double currentRow, currentColumn, row, col;
-     	for(int i = 0; i < tiles.length; i++) {
-     		currentRow = Math.ceil(i/3)-1;
-     		currentColumn = i%3;
-
-     		row = Math.ceil(tiles[i]/3)-1;
-     		col = tiles[i]%3;
-
-     		h += Math.abs(row - currentRow) + Math.abs(col - currentColumn);
-		}
-
-     	return h;
-	}
-    private int Eculidean(byte[] tiles) {
-		int h = 0;
-		double currentRow, currentColumn, row, col;
-		for(int i = 0; i < tiles.length; i++) {
-			currentRow = Math.ceil(i/3)-1;
-			currentColumn = i%3;
-
-			row = Math.ceil(tiles[i]/3)-1;
-			col = tiles[i]%3;
-
-			h += Math.sqrt(Math.pow((row - currentRow), 2) + Math.pow((col - currentColumn), 2));
-		}
-
-		return h;
+    public int getHeuristics(State state, HeuristicsType heuristicsType) {
+        if (heuristicsType == HeuristicsType.NONE)
+            return 0;
+        else if (heuristicsType == HeuristicsType.MANHATTAN)
+            return calManhattan(state);
+        else if (heuristicsType == HeuristicsType.EUCLIDEAN)
+            return calEuclidean(state);
+        else
+            return 0;
     }
-	public byte[] getGoal() {
-		return Goal;
-	}
-    
-   
-	
+
+
+    private int calManhattan(State state) {
+        int boardRowsNum = (int) Math.sqrt(state.getBoardSize());
+        int emptySlotNum = state.getEmptySlotNum();
+        int h = Math.abs(boardRowsNum - 1 - emptySlotNum/boardRowsNum) + Math.abs(boardRowsNum - 1 - emptySlotNum%boardRowsNum);
+
+        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < boardRowsNum; i++) {
+            actualRow = i/boardRowsNum;
+            actualCol = i%boardRowsNum;
+            slotNum = state.getValSlot((byte) (i + 1));
+            currRow = slotNum/boardRowsNum;
+            currCol = slotNum%boardRowsNum;
+            h += Math.abs(actualRow - currRow) + Math.abs(actualCol - currCol);
+        }
+
+        return h;
+    }
+
+    private int calEuclidean(State state) {
+        int boardRowsNum = (int) Math.sqrt(state.getBoardSize());
+        int emptySlotNum = state.getEmptySlotNum();
+        int h = (int) Math.sqrt(Math.pow((boardRowsNum - 1 - emptySlotNum/boardRowsNum), 2) + Math.pow((boardRowsNum - 1 - emptySlotNum%boardRowsNum), 2));
+
+        for (int i = 0, actualRow, actualCol, slotNum, currRow, currCol; i < state.getBoardSize(); i++) {
+            actualRow = i/boardRowsNum;
+            actualCol = i%boardRowsNum;
+            slotNum = state.getValSlot((byte) (i + 1));
+            currRow = slotNum/boardRowsNum;
+            currCol = slotNum%boardRowsNum;
+
+            h += Math.sqrt(Math.pow((actualRow - currRow), 2) + Math.pow((actualCol - currCol), 2));
+        }
+
+        return h;
+    }
+
 }
