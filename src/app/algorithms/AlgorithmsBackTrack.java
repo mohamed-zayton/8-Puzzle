@@ -7,7 +7,6 @@ import java.util.Vector;
 
 public class AlgorithmsBackTrack {
 
-
     public static List<Integer> backTrackPath(HashMap<Integer, Integer> parentMap, int goalState) {
         int currState = goalState, parent;
         Vector<Integer> states = new Vector<>();
