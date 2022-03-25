@@ -48,10 +48,11 @@ public class A_STAR {
 		HeuristicComparator comparator = new HeuristicComparator();
 		PriorityQueue<StateHeuristicHolder> frontier = new PriorityQueue<StateHeuristicHolder>(comparator);
 		HashSet<Integer> explored = new HashSet<>();
+		HashMap<Integer, Integer> depth_map = new HashMap<>();
 		IntState intState = new IntState();
 		frontier.add(new StateHeuristicHolder(initialState, (byte) 0, (byte) 0));
 		parentMap.put(initialState, initialState);
-
+		depth_map.put(initialState, 0);
 		boolean goalFound = false;
 		StateHeuristicHolder currStateHeuristicHolder;
 		int currState;
@@ -65,9 +66,9 @@ public class A_STAR {
 				goalFound = true;
 				break;
 			}
-
-			if (this.maxDepth < currStateHeuristicHolder.g){
-				this.maxDepth = currStateHeuristicHolder.g;
+			int depth = depth_map.get(currStateHeuristicHolder.state);
+			if (this.maxDepth < depth){
+				this.maxDepth = depth;
 			}
 			explored.add(currState);
 			List<Integer> neighbors = intState.getNeighborIntStates(currState);
@@ -76,7 +77,16 @@ public class A_STAR {
 					continue;
 
 				frontier.add(new StateHeuristicHolder(n, (byte) (currStateHeuristicHolder.getG() + 1), (byte) (intState.getHeuristics(n, heuristicsType))));
-				parentMap.put(n, currState);
+				if (depth_map.containsKey(n)){
+					if (depth_map.get(n) > (currStateHeuristicHolder.getG() + 1)){
+						depth_map.put(n,(currStateHeuristicHolder.getG() + 1));
+						parentMap.put(n, currState);
+					}
+				}else{
+					depth_map.put(n,(currStateHeuristicHolder.getG() + 1));
+					parentMap.put(n, currState);
+				}
+
 			}
 		}
 
