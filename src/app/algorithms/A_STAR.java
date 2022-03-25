@@ -6,6 +6,7 @@ import java.util.*;
 
 public class A_STAR {
 
+	private int maxDepth;
 	private HashMap<Integer, Integer> parentMap = new HashMap<>();
 	private class StateHeuristicHolder {
 		private int state;
@@ -54,6 +55,7 @@ public class A_STAR {
 		boolean goalFound = false;
 		StateHeuristicHolder currStateHeuristicHolder;
 		int currState;
+		this.maxDepth = 0;
 		while (!frontier.isEmpty()) {
 			currStateHeuristicHolder = frontier.poll();
 			currState = currStateHeuristicHolder.getState();
@@ -64,6 +66,9 @@ public class A_STAR {
 				break;
 			}
 
+			if (this.maxDepth < currStateHeuristicHolder.g){
+				this.maxDepth = currStateHeuristicHolder.g;
+			}
 			explored.add(currState);
 			List<Integer> neighbors = intState.getNeighborIntStates(currState);
 			for (int n : neighbors) {
@@ -80,6 +85,10 @@ public class A_STAR {
 
 	public int getNumberOfExpanded(){
 		return this.parentMap.size();
+	}
+
+	public int getMaxDepth(){
+		return  this.maxDepth;
 	}
 
 
