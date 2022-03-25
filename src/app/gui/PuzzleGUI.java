@@ -150,6 +150,7 @@ public class PuzzleGUI implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         solveBtn.setOnAction(e -> {
             stateCount = 0;
+            int cost = 0;
             if (BFSRadioBtn.isSelected()) {
                 BFS bfs = new BFS();
                 path = bfs.BFS(currState);
@@ -159,8 +160,9 @@ public class PuzzleGUI implements Initializable {
             } else {
                 A_STAR a = new A_STAR();
                 path = a.AStar(currState, IntState.HeuristicsType.EUCLIDEAN);
-            }
 
+            }
+            cost = path.size();
             buildPuzzle(path.get(stateCount));
             moveTile(path.get(stateCount), path.get(stateCount + 1));
         });
