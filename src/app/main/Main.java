@@ -1,12 +1,10 @@
 package app.main;
 import app.IntState;
-import app.algorithms.A_STAR;
 import app.gui.PuzzleGUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -32,8 +30,8 @@ public class Main extends Application {
 
 		int initialState = 867254301;
 
-		puzzleGUI.buildPuzzle(initialState);
-		Scene scene = new Scene(parent, 550, 730);
+		//puzzleGUI.buildPuzzle(initialState);
+		Scene scene = new Scene(parent, 550, 750);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("8 Puzzle");
 		primaryStage.setResizable(false);

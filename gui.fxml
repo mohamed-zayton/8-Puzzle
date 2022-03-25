@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="parentLayout" fx:id="parentLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="550.0" style="-fx-background-color: #cbe3d8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.PuzzleGUI">
+<AnchorPane id="parentLayout" fx:id="parentLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="550.0" style="-fx-background-color: #cbe3d8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuzzleGUI">
    <children>
       <Pane id="puzzleLayout" fx:id="puzzleLayout" layoutX="182.0" layoutY="14.0" prefHeight="530.0" prefWidth="530.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="2.0" />
       <VBox id="controlVBox" fx:id="controlVBox" layoutX="64.0" layoutY="500.0" prefHeight="160.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
