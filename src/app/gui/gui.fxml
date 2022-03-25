@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="parentLayout" fx:id="parentLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.PuzzleGUI">
+   <children>
+      <Pane id="puzzleLayout" fx:id="puzzleLayout" layoutX="182.0" layoutY="14.0" prefHeight="530.0" prefWidth="530.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <VBox id="controlVBox" fx:id="controlVBox" layoutX="64.0" layoutY="500.0" prefHeight="160.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <HBox id="optionsHBox" fx:id="optionsHBox" prefHeight="70.0" prefWidth="530.0" spacing="10.0">
+               <children>
+                  <VBox id="radioButtonsVBox" fx:id="radioButtonsVBox" prefHeight="70.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <RadioButton id="BFSRadioBtn" fx:id="BFSRadioBtn" mnemonicParsing="false" selected="true" text="BFS">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="algoSelectToggle" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton id="DFSRadioBtn" fx:id="DFSRadioBtn" mnemonicParsing="false" text="DFS" toggleGroup="$algoSelectToggle" />
+                        <RadioButton id="ASRadioBtn" fx:id="ASRadioBtn" mnemonicParsing="false" text="A*" toggleGroup="$algoSelectToggle" />
+                     </children>
+                  </VBox>
+                  <VBox id="animationCtrVBox" fx:id="animationCtrVBox" prefHeight="70.0" prefWidth="450.0">
+                     <children>
+                        <Slider id="speedSlider" fx:id="speedSlider" prefHeight="39.0" prefWidth="450.0" value="50.0" />
+                        <Label id="animationSpeedLabel" fx:id="animationSpeedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="450.0" text="Animation Speed" textAlignment="CENTER">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox id="btnDataHBox" fx:id="btnDataHBox" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button id="shuffleBtn" fx:id="shuffleBtn" mnemonicParsing="false" prefHeight="70.0" prefWidth="160.0" text="Shuffle">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="solveBtn" fx:id="solveBtn" mnemonicParsing="false" prefHeight="70.0" prefWidth="160.0" text="Solve">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <VBox id="infoLabelsVBox" fx:id="infoLabelsVBox" prefHeight="70.0" prefWidth="210.0">
+                     <children>
+                        <Label id="costLabel" fx:id="costLabel" prefHeight="18.0" prefWidth="210.0" text="Cost = 0" />
+                        <Label id="nodesExpandedLabel" fx:id="nodesExpandedLabel" text="Nodes Expanded = 0" />
+                        <Label id="searchDepthLabel" fx:id="searchDepthLabel" text="Search Depth = 0" />
+                        <Label id="runningTimeLabel" fx:id="runningTimeLabel" text="Running Time = 0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

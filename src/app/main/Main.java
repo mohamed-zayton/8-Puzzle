@@ -1,5 +1,7 @@
-package app;
+package app.main;
+import app.IntState;
 import app.algorithms.A_STAR;
+import app.gui.PuzzleGUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,15 +16,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 
-		/*PuzzleGUI puzzleGUI = null;// = new PuzzleGUI();
+		PuzzleGUI puzzleGUI = null;
 		Parent parent = null;
 		try {
 
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("gui.fxml"));
-			//puzzleGUI = new PuzzleGUI();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/gui/gui.fxml"));
 			loader.setController(puzzleGUI);
-			//puzzleGUI = loader.load();
-			//loader.setRoot(parent);
 			parent = loader.load();
 			puzzleGUI = loader.getController();
 
@@ -31,41 +30,19 @@ public class Main extends Application {
 			System.exit(0);
 		}
 
-		int state = 123456789;
-		System.out.println(puzzleGUI);
-		puzzleGUI.buildPuzzle();*/
-		Scene scene = new Scene(new Pane(), 550, 730);
+		int initialState = 867254301;
+
+		puzzleGUI.buildPuzzle(initialState);
+		Scene scene = new Scene(parent, 550, 730);
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("8 Puzzle");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 
 	public static void main(String[] args) {
 		launch(args);
-		/*int boardSize = 3*3;
-	    byte[] initialStateBytes = scanStartState(boardSize);
-		byte[] optimizedInitialState = State.convertNormalStateBytesToOptimizedBytes(initialStateBytes, boardSize);
-	    State initialState = new State(optimizedInitialState, boardSize);
-		System.out.println(initialState);
-	    List<State> neighbors = initialState.getNeighborStates();
-	    for (State n : neighbors)
-			System.out.println(n);
 	    //TODO: Solve the puzzle here.*/
-		int initialState = 867254301;
-		IntState intState = new IntState();
-		/*if(puzzleIsSolvable(initialState))
-			System.out.println("Solvable");
-		else
-			System.out.println("Not Solvable");
-*/
-		//8 6 7
-		// 2 5 4
-		// 3 . 1
-		A_STAR a = new A_STAR();
-		List<Integer> path = a.AStar(initialState, IntState.HeuristicsType.EUCLIDEAN);
-		System.out.println(path.size());
-		for (int n : path)
-			System.out.println(intState.intStateToString(n));
-
 
    }
 
