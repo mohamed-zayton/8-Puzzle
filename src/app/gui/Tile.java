@@ -8,6 +8,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.LinkedList;
@@ -18,47 +19,54 @@ public class Tile extends StackPane {
 
     private Rectangle rectangle = new Rectangle();
     private Label label = new Label();
-    private Queue<Timeline> timelinesQueue = new LinkedList<>();
-    private float currX;
-    private float currY;
     private boolean tileIsMoving = false;
     private PuzzleGUI puzzleGUI;
+    private Timeline movingTimeLine;
 
     public Tile(float x, float y, int num, PuzzleGUI puzzleGUI) {
         this.puzzleGUI = puzzleGUI;
         label.setText(String.format("%d", num));
-        setPrefHeight(170);
-        setPrefWidth(170);
-        rectangle.setWidth(160);
-        rectangle.setHeight(160);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setFill(Color.TRANSPARENT);
+        label.setFont(new Font("Tahoma", 30));
+        label.styleProperty().set("-fx-text-fill: #c6e4d7;" + "-fx-font-weight: bold;");
+
+
+        styleProperty().set("-fx-background-color: transparent;");
+        setPrefHeight(166);
+        setPrefWidth(166);
+        rectangle.setWidth(166);
+        rectangle.setHeight(166);
+        rectangle.strokeWidthProperty().set(2);
+        rectangle.setStroke(Color.rgb(14,72,92,1));
+        rectangle.setFill(Color.rgb(67,104,142,1));
 
         getChildren().addAll(rectangle, label);
         setLayoutX(x);
         setLayoutY(y);
-        //setTranslateX(x);
-        //setTranslateY(y);
-        currX = x;
-        currY = y;
     }
 
     public void move(double addToX, double addToY, float speed) {
-        KeyValue xKeyValue = new KeyValue(this.layoutXProperty(), getLayoutX() + addToX);
-        KeyFrame xKeyFrame = new KeyFrame(Duration.millis(500 * (100 / speed)), xKeyValue);
-        KeyValue yKeyValue = new KeyValue(this.layoutYProperty(), getLayoutY() + addToY);
-        KeyFrame yKeyFrame = new KeyFrame(Duration.millis(500 * (100 / speed)), yKeyValue);
-        Timeline movingTimeLine;
-
-        if (addToY == 0)
+        if (addToY == 0) {
+            KeyValue xKeyValue = new KeyValue(this.layoutXProperty(), getLayoutX() + addToX);
+            KeyFrame xKeyFrame = new KeyFrame(Duration.millis(200 * (100 / speed)), xKeyValue);
             movingTimeLine = new Timeline(xKeyFrame);
-        else
+        }
+        else {
+            KeyValue yKeyValue = new KeyValue(this.layoutYProperty(), getLayoutY() + addToY);
+            KeyFrame yKeyFrame = new KeyFrame(Duration.millis(200 * (100 / speed)), yKeyValue);
             movingTimeLine = new Timeline(yKeyFrame);
+        }
 
         movingTimeLine.setOnFinished(e -> {
+            tileIsMoving = false;
             puzzleGUI.moveNextTile() ;
         });
+        tileIsMoving = true;
         movingTimeLine.play();
+    }
+
+    public void stopMoving() {
+        if (tileIsMoving)
+            movingTimeLine.stop();
     }
 
 
