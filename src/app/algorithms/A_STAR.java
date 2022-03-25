@@ -6,6 +6,8 @@ import java.util.*;
 
 public class A_STAR {
 
+	private int maxDepth;
+	private HashMap<Integer, Integer> parentMap = new HashMap<>();
 	private class StateHeuristicHolder {
 		private int state;
 		private byte g;
@@ -46,7 +48,6 @@ public class A_STAR {
 		HeuristicComparator comparator = new HeuristicComparator();
 		PriorityQueue<StateHeuristicHolder> frontier = new PriorityQueue<StateHeuristicHolder>(comparator);
 		HashSet<Integer> explored = new HashSet<>();
-		HashMap<Integer, Integer> parentMap = new HashMap<>();
 		IntState intState = new IntState();
 		frontier.add(new StateHeuristicHolder(initialState, (byte) 0, (byte) 0));
 		parentMap.put(initialState, initialState);
@@ -54,6 +55,7 @@ public class A_STAR {
 		boolean goalFound = false;
 		StateHeuristicHolder currStateHeuristicHolder;
 		int currState;
+		this.maxDepth = 0;
 		while (!frontier.isEmpty()) {
 			currStateHeuristicHolder = frontier.poll();
 			currState = currStateHeuristicHolder.getState();
@@ -64,6 +66,9 @@ public class A_STAR {
 				break;
 			}
 
+			if (this.maxDepth < currStateHeuristicHolder.g){
+				this.maxDepth = currStateHeuristicHolder.g;
+			}
 			explored.add(currState);
 			List<Integer> neighbors = intState.getNeighborIntStates(currState);
 			for (int n : neighbors) {
@@ -77,5 +82,14 @@ public class A_STAR {
 
 		return goalFound ? AlgorithmsBackTrack.backTrackPath(parentMap, intState.getGoalState()) : null;
 	}
+
+	public int getNumberOfExpanded(){
+		return this.parentMap.size();
+	}
+
+	public int getMaxDepth(){
+		return  this.maxDepth;
+	}
+
 
 }
