@@ -1,4 +1,4 @@
-package app.Algorithms;
+package app.algorithms;
 
 import app.IntState;
 
