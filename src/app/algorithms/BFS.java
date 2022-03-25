@@ -51,4 +51,8 @@ public class BFS {
     public int getNumberOfExpanded(){
         return this.parentMap.size();
     }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
 }

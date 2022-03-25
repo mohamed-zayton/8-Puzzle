@@ -55,4 +55,8 @@ public class DFS {
     public int getNumberOfExpanded(){
         return this.parentMap.size();
     }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
 }

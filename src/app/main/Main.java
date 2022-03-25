@@ -28,9 +28,6 @@ public class Main extends Application {
 			System.exit(0);
 		}
 
-		int initialState = 867254301;
-
-		//puzzleGUI.buildPuzzle(initialState);
 		Scene scene = new Scene(parent, 550, 750);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("8 Puzzle");
@@ -40,22 +37,6 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-	    //TODO: Solve the puzzle here.*/
-
-   }
-
-   private static boolean puzzleIsSolvable(int initialState) {
-		byte[] state = new IntState().intStateToByteArr(initialState);
-	   int inv_count = 0;
-	   for (int i = 0; i < 3 - 1; i++) {
-		   for (int j = i + 1; j < 3; j++) {
-			   // Value 0 is used for empty space
-			   if (state[j * 3 + i] > 0 && state[j * 3 + i] > state[i * 3 + j])
-				   inv_count++;
-		   }
-	   }
-
-	   return inv_count%2 == 0;
    }
 
    private static byte[] scanStartState(int boardSize) {

@@ -270,27 +270,44 @@ public class PuzzleGUI implements Initializable {
             }
             stateCount = 0;
             int cost = 0;
+            int expandedNodes = 0;
+            int depth = 0;
+            double runningTime = 0;
+
+            long startTime = System.currentTimeMillis();
             if (BFSRadioBtn.isSelected()) {
                 BFS bfs = new BFS();
                 path = bfs.BFS(currState);
+                cost = path != null ? path.size() - 1 : 0;
+                expandedNodes = bfs.getNumberOfExpanded();
+                depth = bfs.getMaxDepth();
             } else if (DFSRadioBtn.isSelected()) {
                 DFS dfs = new DFS();
                 path = dfs.DFS(currState);
-            } else if (ASManRadioBtn.isSelected()) {
-                A_STAR a = new A_STAR();
-                path = a.AStar(currState, IntState.HeuristicsType.MANHATTAN);
+                cost = path != null ? path.size() - 1 : 0;
+                expandedNodes = dfs.getNumberOfExpanded();
+                depth = dfs.getMaxDepth();
             } else {
                 A_STAR a = new A_STAR();
-                path = a.AStar(currState, IntState.HeuristicsType.EUCLIDEAN);
+                path = a.AStar(currState, ASManRadioBtn.isSelected() ? IntState.HeuristicsType.MANHATTAN : IntState.HeuristicsType.EUCLIDEAN);
+                cost = path != null ? path.size() - 1 : 0;
+                expandedNodes = a.getNumberOfExpanded();
+                depth = a.getMaxDepth();
+            }
+
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            runningTime = elapsedTime / 1000.0;
 
             if (path == null || path.size() < 2) {
                 enableBoardAfterFinishing();
                 return;
             }
 
-            }
-            cost = path.size();
-
+            costLabel.setText("Cost=" + cost);
+            nodesExpandedLabel.setText("Nodes Expanded=" + expandedNodes);
+            searchDepthLabel.setText("Depth=" + depth);
+            runningTimeLabel.setText("Time=" + String.format("%.2f", runningTime));
             moveTile(path.get(stateCount), path.get(stateCount + 1));
         });
     }
@@ -335,8 +352,5 @@ public class PuzzleGUI implements Initializable {
         setUpStopBtn();
         setUpBoardElements();
         buildPuzzle();
-
-        System.out.println(puzzleLayout.getPrefHeight());
-        System.out.println(puzzleLayout.getPrefWidth());
     }
 }

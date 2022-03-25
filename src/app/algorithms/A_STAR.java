@@ -88,7 +88,7 @@ public class A_STAR {
 	}
 
 	public int getMaxDepth(){
-		return  this.maxDepth;
+		return this.maxDepth;
 	}
 
 

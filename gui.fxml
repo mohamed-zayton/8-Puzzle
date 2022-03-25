@@ -46,9 +46,9 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox id="btnDataHBox" fx:id="btnDataHBox" prefHeight="70.0" prefWidth="200.0" spacing="10.0">
+            <HBox id="btnDataHBox" fx:id="btnDataHBox" prefHeight="86.0" prefWidth="526.0" spacing="10.0">
                <children>
-                  <Button id="shuffleBtn" fx:id="shuffleBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-border-radius: 5; -fx-text-fill: #0e485c;" text="Shuffle">
+                  <Button id="shuffleBtn" fx:id="shuffleBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-border-radius: 5; -fx-text-fill: #0e485c;" text="Shuffle">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -56,7 +56,7 @@
                         <Font name="MS Outlook" size="16.0" />
                      </font>
                   </Button>
-                  <Button id="solveBtn" fx:id="solveBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-text-fill: #0e485c; -fx-border-radius: 5;" text="Solve">
+                  <Button id="solveBtn" fx:id="solveBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-text-fill: #0e485c; -fx-border-radius: 5;" text="Solve">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -64,7 +64,7 @@
                         <Font name="MS Outlook" size="16.0" />
                      </font>
                   </Button>
-                  <Button id="stopBtn" fx:id="stopBtn" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-border-radius: 5; -fx-text-fill: #0e485c;" text="Stop">
+                  <Button id="stopBtn" fx:id="stopBtn" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="80.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #0e485c; -fx-border-radius: 5; -fx-text-fill: #0e485c;" text="Stop">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -103,12 +103,12 @@
                         <Insets />
                      </HBox.margin>
                   </VBox>
-                  <VBox id="infoLabelsVBox" fx:id="infoLabelsVBox" prefHeight="77.0" prefWidth="130.0" spacing="5.0">
+                  <VBox id="infoLabelsVBox" fx:id="infoLabelsVBox" prefHeight="86.0" prefWidth="143.0" spacing="5.0">
                      <children>
-                        <Label id="costLabel" fx:id="costLabel" prefHeight="18.0" prefWidth="210.0" style="-fx-text-fill: #0e485c;" text="Cost = 0" />
-                        <Label id="nodesExpandedLabel" fx:id="nodesExpandedLabel" style="-fx-text-fill: #0e485c;" text="Nodes Expanded = 0" />
-                        <Label id="searchDepthLabel" fx:id="searchDepthLabel" style="-fx-text-fill: #0e485c;" text="Search Depth = 0" />
-                        <Label id="runningTimeLabel" fx:id="runningTimeLabel" style="-fx-text-fill: #0e485c;" text="Running Time = 0" />
+                        <Label id="costLabel" fx:id="costLabel" prefHeight="18.0" prefWidth="210.0" style="-fx-text-fill: #0e485c;" text="Cost=0" />
+                        <Label id="nodesExpandedLabel" fx:id="nodesExpandedLabel" style="-fx-text-fill: #0e485c;" text="Nodes Expanded=0" />
+                        <Label id="searchDepthLabel" fx:id="searchDepthLabel" style="-fx-text-fill: #0e485c;" text="Search Depth=0" />
+                        <Label id="runningTimeLabel" fx:id="runningTimeLabel" style="-fx-text-fill: #0e485c;" text="Running Time=0" />
                      </children>
                   </VBox>
                </children>
