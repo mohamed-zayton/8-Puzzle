@@ -44,6 +44,7 @@ public class BFS {
         return goalFound ? AlgorithmsBackTrack.backTrackPath(parentMap, intState.getGoalState()) : null;
     }
 
-
-
+    public int getNumberOfExpanded(){
+        return this.parentMap.size();
+    }
 }

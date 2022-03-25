@@ -1,13 +1,13 @@
 package app.algorithms;
 
 import app.IntState;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
 public class DFS {
+
 
     private Stack<Integer> frontier = new Stack<>();
     private HashSet<Integer> explored = new HashSet<>();
@@ -47,4 +47,7 @@ public class DFS {
         return goalFound ? AlgorithmsBackTrack.backTrackPath(parentMap, intState.getGoalState()) : null;
     }
 
+    public int getNumberOfExpanded(){
+        return this.parentMap.size();
+    }
 }

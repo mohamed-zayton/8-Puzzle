@@ -6,6 +6,7 @@ import java.util.*;
 
 public class A_STAR {
 
+	private HashMap<Integer, Integer> parentMap = new HashMap<>();
 	private class StateHeuristicHolder {
 		private int state;
 		private byte g;
@@ -46,7 +47,6 @@ public class A_STAR {
 		HeuristicComparator comparator = new HeuristicComparator();
 		PriorityQueue<StateHeuristicHolder> frontier = new PriorityQueue<StateHeuristicHolder>(comparator);
 		HashSet<Integer> explored = new HashSet<>();
-		HashMap<Integer, Integer> parentMap = new HashMap<>();
 		IntState intState = new IntState();
 		frontier.add(new StateHeuristicHolder(initialState, (byte) 0, (byte) 0));
 		parentMap.put(initialState, initialState);
@@ -77,5 +77,10 @@ public class A_STAR {
 
 		return goalFound ? AlgorithmsBackTrack.backTrackPath(parentMap, intState.getGoalState()) : null;
 	}
+
+	public int getNumberOfExpanded(){
+		return this.parentMap.size();
+	}
+
 
 }
