@@ -20,6 +20,7 @@ public class BFS {
         frontier.add(initialState);
         parentMap.put(initialState, initialState);
         this.maxDepth = 0;
+        depth_map.put(initialState, 0);
         boolean goalFound = false;
         int currState;
         while (!frontier.isEmpty()) {
